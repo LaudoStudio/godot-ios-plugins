@@ -90,27 +90,16 @@ Error GameCenter::authenticate() {
 
     UIViewController *root_controller = nil;
 
-    // iOS 13+ compatible method
-    if (@available(iOS 13.0, *)) {
-        NSArray *windows = [[UIApplication sharedApplication] windows];
-        for (UIWindow *window in windows) {
-            if (window.isKeyWindow) {
-                root_controller = window.rootViewController;
-                break;
-            }
-        }
-        // Fallback: use first window
-        if (!root_controller && windows.count > 0) {
-            root_controller = ((UIWindow*)windows[0]).rootViewController;
+    NSArray *windows = [[UIApplication sharedApplication] windows];
+    for (UIWindow *window in windows) {
+        if (window.isKeyWindow) {
+            root_controller = window.rootViewController;
+            break;
         }
     }
-
-    // iOS < 13 fallback
-    if (!root_controller) {
-        UIWindow *window = [[UIApplication sharedApplication] delegate].window;
-        if (window) {
-            root_controller = window.rootViewController;
-        }
+    // Fallback: use first window
+    if (!root_controller && windows.count > 0) {
+        root_controller = ((UIWindow*)windows[0]).rootViewController;
     }
 
     ERR_FAIL_COND_V(!root_controller, FAILED);
@@ -346,27 +335,16 @@ Error GameCenter::show_game_center(Dictionary p_params) {
 
     UIViewController *root_controller = nil;
 
-    // iOS 13+ compatible method
-    if (@available(iOS 13.0, *)) {
-        NSArray *windows = [[UIApplication sharedApplication] windows];
-        for (UIWindow *window in windows) {
-            if (window.isKeyWindow) {
-                root_controller = window.rootViewController;
-                break;
-            }
-        }
-        // Fallback: use first window
-        if (!root_controller && windows.count > 0) {
-            root_controller = ((UIWindow*)windows[0]).rootViewController;
+    NSArray *windows = [[UIApplication sharedApplication] windows];
+    for (UIWindow *window in windows) {
+        if (window.isKeyWindow) {
+            root_controller = window.rootViewController;
+            break;
         }
     }
-
-    // iOS < 13 fallback
-    if (!root_controller) {
-        UIWindow *window = [[UIApplication sharedApplication] delegate].window;
-        if (window) {
-            root_controller = window.rootViewController;
-        }
+    // Fallback: use first window
+    if (!root_controller && windows.count > 0) {
+        root_controller = ((UIWindow*)windows[0]).rootViewController;
     }
 
     ERR_FAIL_COND_V(!root_controller, FAILED);
